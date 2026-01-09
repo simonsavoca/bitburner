@@ -61,7 +61,7 @@ export function formatTime(ms) {
  */
 export function formatPercent(value, decimals = 2) {
     if (!Number.isFinite(value)) {
-        return '0.00%';
+        return `0.${'0'.repeat(decimals)}%`;
     }
     return `${(value * 100).toFixed(decimals)}%`;
 }
