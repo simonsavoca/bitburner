@@ -9,7 +9,7 @@
  * @returns {string}
  */
 export function formatMoney(amount) {
-    if (amount === undefined || amount === null || typeof amount !== 'number') {
+    if (!Number.isFinite(amount)) {
         return '$0.00';
     }
     const absAmount = Math.abs(amount);
@@ -26,7 +26,7 @@ export function formatMoney(amount) {
  * @returns {string}
  */
 export function formatRAM(gb) {
-    if (gb === undefined || gb === null || typeof gb !== 'number') {
+    if (!Number.isFinite(gb)) {
         return '0.00GB';
     }
     if (gb >= 1024) return `${(gb / 1024).toFixed(2)}TB`;
@@ -39,7 +39,7 @@ export function formatRAM(gb) {
  * @returns {string}
  */
 export function formatTime(ms) {
-    if (ms === undefined || ms === null || typeof ms !== 'number') {
+    if (!Number.isFinite(ms)) {
         return '0.0s';
     }
     const seconds = ms / 1000;
@@ -60,7 +60,7 @@ export function formatTime(ms) {
  * @returns {string}
  */
 export function formatPercent(value, decimals = 2) {
-    if (value === undefined || value === null || typeof value !== 'number') {
+    if (!Number.isFinite(value)) {
         return '0.00%';
     }
     return `${(value * 100).toFixed(decimals)}%`;
@@ -72,7 +72,7 @@ export function formatPercent(value, decimals = 2) {
  * @returns {string}
  */
 export function formatNumber(num) {
-    if (num === undefined || num === null || typeof num !== 'number') {
+    if (!Number.isFinite(num)) {
         return '0';
     }
     const absNum = Math.abs(num);
