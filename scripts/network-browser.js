@@ -56,7 +56,8 @@ export async function main(ns) {
         ns.tprint('');
     }
     
-    ns.tprint('Detailed Network Analysis:\n');
+    ns.tprint('Detailed Network Analysis:');
+    ns.tprint('');
     
     // Display detailed network information
     displayNetworkInfo(ns, maxDepth, autoLinkAvailable);
@@ -112,11 +113,11 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
         const connections = ns.scan(server);
         const children = connections.filter(s => !visited.has(s));
         
-        for (let i = 0; i < children.length; i++) {
-            const isLast = i === children.length - 1;
+        children.forEach((child, index) => {
+            const isLast = index === children.length - 1;
             const newPrefix = indent + (isLast ? TREE_LAST : TREE_BRANCH);
-            scanRecursive(children[i], depth + 1, newPrefix);
-        }
+            scanRecursive(child, depth + 1, newPrefix);
+        });
     }
     
     scanRecursive('home');
