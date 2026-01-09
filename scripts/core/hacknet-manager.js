@@ -6,7 +6,7 @@ import { formatMoney } from '/scripts/utils/format-utils.js';
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     const MAX_NODES = 8; // Maximum nodes to maintain initially
     const UPGRADE_THRESHOLD = 0.1; // Upgrade when cost is less than 10% of current money

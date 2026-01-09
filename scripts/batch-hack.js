@@ -15,7 +15,7 @@ const SCRIPT_RAM = 1.75;
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     ns.print('═══ BATCH HACKING ORCHESTRATOR ═══\n');
     ns.print('This is an advanced hacking strategy.');

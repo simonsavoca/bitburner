@@ -28,7 +28,7 @@ const SCRIPTS = {
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     ns.print('╔════════════════════════════════════════╗');
     ns.print('║   BITBURNER AUTOMATION SUITE v2.0      ║');

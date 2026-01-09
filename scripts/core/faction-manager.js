@@ -31,7 +31,7 @@ const CITY_FACTIONS = [
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     while (true) {
         ns.clearLog();

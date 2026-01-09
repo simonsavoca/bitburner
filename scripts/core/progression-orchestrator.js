@@ -19,7 +19,7 @@ const EARLY_CRIMES = {
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     ns.print('╔════════════════════════════════════════╗');
     ns.print('║  PROGRESSION ORCHESTRATOR v2.0         ║');

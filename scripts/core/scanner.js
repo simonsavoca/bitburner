@@ -6,7 +6,7 @@ import { scanNetwork, tryNuke, hasAutoLink } from '/scripts/utils/server-utils.j
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     let lastScanTime = 0;
     const SCAN_INTERVAL = 60000; // Scan every 60 seconds
