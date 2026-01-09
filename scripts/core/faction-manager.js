@@ -7,26 +7,31 @@ import { formatMoney } from '/scripts/utils/format-utils.js';
  * 
  * Note: Requires Source-File 4 access
  */
+
+// Configuration constants
+const NEUROFLUX_GOVERNOR = 'NeuroFlux Governor'; // Special augmentation
+const INSTALL_WARNING_THRESHOLD = 5; // Warn when this many augs queued
+
+// Early game factions (accessible without requirements)
+const EARLY_FACTIONS = [
+    'CyberSec',
+    'Tian Di Hui',
+    'Netburners'
+];
+
+// City factions
+const CITY_FACTIONS = [
+    'Sector-12',
+    'Aevum',
+    'Chongqing',
+    'New Tokyo',
+    'Ishima',
+    'Volhaven'
+];
+
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.tail();
-    
-    // Early game factions (accessible without requirements)
-    const EARLY_FACTIONS = [
-        'CyberSec',
-        'Tian Di Hui',
-        'Netburners'
-    ];
-    
-    // City factions
-    const CITY_FACTIONS = [
-        'Sector-12',
-        'Aevum',
-        'Chongqing',
-        'New Tokyo',
-        'Ishima',
-        'Volhaven'
-    ];
     
     while (true) {
         ns.clearLog();
@@ -168,7 +173,7 @@ async function handleAugmentations(ns, currentMoney) {
         const factionAugs = ns.singularity.getAugmentationsFromFaction(faction);
         
         for (const aug of factionAugs) {
-            if (!ownedAugs.includes(aug) && aug !== 'NeuroFlux Governor') {
+            if (!ownedAugs.includes(aug) && aug !== NEUROFLUX_GOVERNOR) {
                 const repReq = ns.singularity.getAugmentationRepReq(aug);
                 const price = ns.singularity.getAugmentationPrice(aug);
                 const currentRep = ns.singularity.getFactionRep(faction);
@@ -208,7 +213,7 @@ async function handleAugmentations(ns, currentMoney) {
     const queuedAugs = ns.singularity.getOwnedAugmentations(true)
         .filter(aug => !ns.singularity.getOwnedAugmentations(false).includes(aug));
     
-    if (queuedAugs.length >= 5) {
+    if (queuedAugs.length >= INSTALL_WARNING_THRESHOLD) {
         ns.print(`\n⚠ ${queuedAugs.length} augmentations queued - consider installing!`);
         ns.print('Run: ns.singularity.installAugmentations() when ready');
     }

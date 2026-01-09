@@ -6,6 +6,17 @@ import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
  * Coordinates all automation scripts and manages game progression
  * Decides when to focus on different activities based on game state
  */
+
+// Configuration constants
+const EARLY_GAME_COMBAT_THRESHOLD = 10; // Min strength for effective crime
+const AUTO_INSTALL_THRESHOLD = 10; // Auto-install when this many augs queued
+
+// Crime choices for early game
+const EARLY_CRIMES = {
+    HIGH_COMBAT: 'Homicide',  // Best money with combat stats
+    LOW_COMBAT: 'Mug'         // Safer choice for low stats
+};
+
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.tail();
@@ -96,12 +107,11 @@ async function manageActivities(ns, phase, player, money) {
             
             // If not busy, do crime for money/stats
             if (!currentWork || currentWork.type !== 'CRIME') {
-                // Homicide gives best money early on (with enough stats)
-                if (player.skills.strength >= 10) {
-                    ns.singularity.commitCrime('Homicide', false);
-                } else {
-                    ns.singularity.commitCrime('Mug', false);
-                }
+                // Choose crime based on combat stats
+                const crimeChoice = (player.skills.strength >= EARLY_GAME_COMBAT_THRESHOLD) 
+                    ? EARLY_CRIMES.HIGH_COMBAT 
+                    : EARLY_CRIMES.LOW_COMBAT;
+                ns.singularity.commitCrime(crimeChoice, false);
             }
             break;
             
@@ -147,11 +157,11 @@ async function manageActivities(ns, phase, player, money) {
             ns.print('Consider running:');
             ns.print('  ns.singularity.installAugmentations()');
             
-            // Auto-install if we have 10+ augs queued
+            // Auto-install if we have enough augs queued
             const queuedCount = ns.singularity.getOwnedAugmentations(true).length - 
                                ns.singularity.getOwnedAugmentations(false).length;
             
-            if (queuedCount >= 10) {
+            if (queuedCount >= AUTO_INSTALL_THRESHOLD) {
                 ns.print('\n🔄 Auto-installing augmentations...');
                 await ns.sleep(5000); // Give player time to see message
                 ns.singularity.installAugmentations('/scripts/bootstrap.js');

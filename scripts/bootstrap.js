@@ -208,7 +208,7 @@ export async function main(ns) {
     ns.print('\n════════════════════════════════════════');
     ns.print(`Started: ${started.length}/${Object.keys(SCRIPTS).length} scripts`);
     if (failed.length > 0) {
-        ns.print(`Failed: ${failed.length} scripts`);
+        ns.print(`Failed: ${failed.length} scripts: ${failed.join(', ')}`);
         ns.print('Consider upgrading home RAM for full automation');
         ns.print('\nNote: Singularity functions require Source-File 4');
     }

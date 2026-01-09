@@ -5,18 +5,22 @@
  * 
  * Note: Requires Source-File 4 access
  */
+
+// Configuration constants
+const STAT_THRESHOLDS = {
+    hacking: 100,      // Target hacking level for early game
+    strength: 50,      // Combat stats for faction requirements
+    defense: 50,
+    dexterity: 50,
+    agility: 50,
+    charisma: 50       // For company/faction work
+};
+
+const EARLY_GAME_MONEY_THRESHOLD = 100000; // Use crime if below this amount
+
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.tail();
-    
-    const STAT_THRESHOLDS = {
-        hacking: 100,      // Target hacking level for early game
-        strength: 50,      // Combat stats for faction requirements
-        defense: 50,
-        dexterity: 50,
-        agility: 50,
-        charisma: 50       // For company/faction work
-    };
     
     while (true) {
         ns.clearLog();
@@ -51,7 +55,7 @@ export async function main(ns) {
                 ns.print(`Target stat: ${statToTrain}`);
                 
                 // Early game: use crime for free training
-                if (player.money < 100000) {
+                if (player.money < EARLY_GAME_MONEY_THRESHOLD) {
                     startCrimeTraining(ns, statToTrain);
                 } else {
                     // Later: use university/gym (faster)

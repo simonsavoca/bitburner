@@ -7,37 +7,42 @@ import { formatMoney } from '/scripts/utils/format-utils.js';
  * 
  * Note: This requires Source-File 4 access. Outside BN4, functions cost 16x RAM.
  */
+
+// Configuration constants
+const TOR_COST = 200000;
+const HOME_UPGRADE_THRESHOLD = 0.15; // Upgrade when cost < 15% of current money
+
+// Programs in priority order (port openers first, then utilities)
+const PRIORITY_PROGRAMS = [
+    'BruteSSH.exe',
+    'FTPCrack.exe',
+    'relaySMTP.exe',
+    'HTTPWorm.exe',
+    'SQLInject.exe',
+    'DeepscanV1.exe',
+    'DeepscanV2.exe',
+    'AutoLink.exe',
+    'ServerProfiler.exe',
+    'Formulas.exe'
+];
+
+// Programs that can be created
+const CREATABLE_PROGRAMS = [
+    'BruteSSH.exe',
+    'FTPCrack.exe',
+    'relaySMTP.exe',
+    'HTTPWorm.exe',
+    'SQLInject.exe',
+    'DeepscanV1.exe',
+    'DeepscanV2.exe',
+    'AutoLink.exe',
+    'ServerProfiler.exe',
+    'Formulas.exe'
+];
+
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.tail();
-    
-    // Programs in priority order (port openers first, then utilities)
-    const PRIORITY_PROGRAMS = [
-        'BruteSSH.exe',
-        'FTPCrack.exe',
-        'relaySMTP.exe',
-        'HTTPWorm.exe',
-        'SQLInject.exe',
-        'DeepscanV1.exe',
-        'DeepscanV2.exe',
-        'AutoLink.exe',
-        'ServerProfiler.exe',
-        'Formulas.exe'
-    ];
-    
-    // Programs that can be created
-    const CREATABLE_PROGRAMS = [
-        'BruteSSH.exe',
-        'FTPCrack.exe',
-        'relaySMTP.exe',
-        'HTTPWorm.exe',
-        'SQLInject.exe',
-        'DeepscanV1.exe',
-        'DeepscanV2.exe',
-        'AutoLink.exe',
-        'ServerProfiler.exe',
-        'Formulas.exe'
-    ];
     
     while (true) {
         ns.clearLog();
@@ -48,15 +53,14 @@ export async function main(ns) {
         
         // 1. Purchase TOR router if we don't have it
         if (!ns.hasTorRouter()) {
-            const torCost = 200000;
-            if (currentMoney >= torCost) {
+            if (currentMoney >= TOR_COST) {
                 if (ns.singularity.purchaseTor()) {
                     ns.print('✓ SUCCESS: Purchased TOR router!');
                 } else {
                     ns.print('✗ Failed to purchase TOR router');
                 }
             } else {
-                ns.print(`Need ${formatMoney(torCost - currentMoney)} more for TOR router`);
+                ns.print(`Need ${formatMoney(TOR_COST - currentMoney)} more for TOR router`);
             }
         } else {
             ns.print('✓ TOR router owned\n');
@@ -141,13 +145,11 @@ async function handlePrograms(ns, priorityPrograms, creatablePrograms, currentMo
 async function handleHomeUpgrades(ns, currentMoney) {
     ns.print('--- Home Upgrades ---');
     
-    const UPGRADE_THRESHOLD = 0.15; // Upgrade when cost is less than 15% of current money
-    
     // Try to upgrade RAM
     const ramCost = ns.singularity.getUpgradeHomeRamCost();
     const currentRAM = ns.getServerMaxRam('home');
     
-    if (ramCost > 0 && currentMoney * UPGRADE_THRESHOLD >= ramCost) {
+    if (ramCost > 0 && currentMoney * HOME_UPGRADE_THRESHOLD >= ramCost) {
         if (ns.singularity.upgradeHomeRam()) {
             ns.print(`✓ Upgraded home RAM to ${currentRAM * 2} GB for ${formatMoney(ramCost)}`);
         }
@@ -159,7 +161,7 @@ async function handleHomeUpgrades(ns, currentMoney) {
     const coreCost = ns.singularity.getUpgradeHomeCoresCost();
     const player = ns.getPlayer();
     
-    if (coreCost > 0 && currentMoney * UPGRADE_THRESHOLD >= coreCost) {
+    if (coreCost > 0 && currentMoney * HOME_UPGRADE_THRESHOLD >= coreCost) {
         if (ns.singularity.upgradeHomeCores()) {
             ns.print(`✓ Upgraded home cores for ${formatMoney(coreCost)}`);
         }
