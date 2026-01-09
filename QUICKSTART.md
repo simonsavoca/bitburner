@@ -1,68 +1,95 @@
-# Bitburner Automation Suite - Quick Reference
+# Bitburner Automation Suite v2.0 - Quick Reference
 
-## Installation (Choose One)
+## 🚀 Installation (Easiest Method)
 
-### Auto-Deploy (Easiest)
+### Auto-Deploy
 ```bash
 wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/deploy.js deploy.js
 run deploy.js
 ```
 
-### Manual Install
-See README.md for detailed instructions
+**That's it!** The automation will now run and handle most of the game automatically.
 
-## Basic Commands
+## 📊 View Progress
 
-### Start Automation
-```bash
-run /scripts/bootstrap.js
-```
-
-### View Dashboard
+### Dashboard (Real-time Stats)
 ```bash
 run /scripts/dashboard.js
 ```
 
-### View Help
+### Progression Guide (Master Controller)
 ```bash
-run /scripts/help.js
+tail /scripts/core/progression-orchestrator.js
 ```
 
-### Stop Everything
+### Individual Components
+```bash
+tail /scripts/core/scanner.js          # Network scanning
+tail /scripts/core/orchestrator.js     # Hacking operations
+tail /scripts/core/singularity-manager.js  # TOR, programs, upgrades
+tail /scripts/core/faction-manager.js  # Factions & augmentations
+```
+
+## ⚡ Automation Levels
+
+### Without Source-File 4 (Basic Automation)
+**Automated:**
+- ✅ Network scanning and rooting
+- ✅ Hacking operations (hack/grow/weaken)
+- ✅ Hacknet nodes
+- ✅ Server purchasing
+
+**Manual:**
+- ❌ TOR router ($200k)
+- ❌ Programs from darkweb
+- ❌ Joining factions
+- ❌ Working for factions
+- ❌ Buying/installing augmentations
+
+### With Source-File 4 (Full Automation)
+**Everything automated including:**
+- ✅ TOR router purchase
+- ✅ Program creation/purchase
+- ✅ Home upgrades (RAM/cores)
+- ✅ Faction joining & work
+- ✅ Augmentation purchasing
+- ✅ Stat training
+- ✅ Backdoor installation
+- ✅ Coding contract solving
+- ✅ Auto-install augmentations (10+ queued)
+
+**Just run and watch!** 🎮
+
+## 🎯 What to Expect
+
+### Early Game (Minutes 1-30)
+- Scanner roots servers
+- Orchestrator starts hacking
+- Money grows from $0 to $1M+
+- Hacknet nodes purchased
+
+### Mid Game (Hours 1-5)
+- **Without SF4**: Manually buy TOR, programs, join factions
+- **With SF4**: Everything happens automatically
+- Money grows to $100M+
+- Home RAM upgrades
+- Faction reputation gains
+
+### Late Game (Hours 5+)
+- Augmentations purchased automatically (with SF4)
+- Stats trained automatically
+- Backdoors installed automatically
+- Ready to complete BitNode
+
+## 🛠 Common Commands
+
+### Restart Automation
 ```bash
 killall
+run /scripts/bootstrap.js
 ```
 
-## Individual Scripts
-
-### Core Scripts
-- `run /scripts/core/scanner.js` - Network scanner
-- `run /scripts/core/orchestrator.js` - Hacking coordinator
-- `run /scripts/core/hacknet-manager.js` - Hacknet automation
-- `run /scripts/core/server-manager.js` - Server management
-- `run /scripts/core/program-manager.js` - Program tracker
-
-### Optional Scripts
-- `run /scripts/dashboard.js` - Statistics dashboard
-- `run /scripts/network-browser.js` - Interactive network browser (uses AutoLink.exe)
-- `run /scripts/batch-hack.js` - Advanced batching
-- `run /scripts/early-hack.js [target]` - Simple hacking
-
-## Viewing Logs
-
-### View Specific Log
-```bash
-tail /scripts/bootstrap.js
-tail /scripts/core/orchestrator.js
-tail /scripts/dashboard.js
-```
-
-### Or Use Active Scripts
-Press `Alt+S` to open Active Scripts page
-
-## Common Tasks
-
-### Check What's Running
+### Check Running Scripts
 ```bash
 ps home
 ```
@@ -72,50 +99,48 @@ ps home
 free
 ```
 
-### Restart Automation
+### Stop Everything
 ```bash
 killall
-run /scripts/bootstrap.js
 ```
 
-## Tips
+## 💡 Tips
 
-1. **Home RAM**: Upgrade for more automation (need ~15-20 GB total)
-2. **Programs**: Buy from dark web to unlock more servers
-3. **TOR Router**: Must be purchased manually ($200k)
-4. **AutoLink.exe**: Install to enable clickable server links in network-browser.js
-5. **Patience**: Income grows exponentially over time
-6. **Dashboard**: Best way to monitor progress
+1. **Patience**: Income grows exponentially, give it time
+2. **Don't Interfere**: Let the automation run continuously
+3. **Monitor Progress**: Check Progression Orchestrator periodically
+4. **Upgrade RAM**: More home RAM = more automation (done automatically with SF4)
+5. **Get SF4**: Unlock full automation by completing BitNode-4
 
-## Troubleshooting
+## ⚠ Troubleshooting
 
 ### Not Enough RAM
-- Upgrade home server
-- Use `run /scripts/early-hack.js` instead
+- Upgrade home server (automatic with SF4)
+- Without SF4: Need ~500GB+ for full automation
+- With SF4-3: Need ~50GB for full automation
 
-### Scripts Not Running
-- Check RAM with `free`
-- Restart with `killall` then `run /scripts/bootstrap.js`
+### Scripts Not Working
+- Check if you have Source-File 4 for advanced features
+- Without SF4, only basic automation works
+- Check logs with `tail` command
 
 ### Low Income
 - Normal in early game
-- Gain hacking levels
-- Buy more programs
-- Let it run continuously
+- Grows exponentially over time
+- Let it run for at least 30 minutes
 
-## What Still Needs Manual Input
+## 📚 More Information
 
-- Purchasing TOR router
-- Joining factions
-- Buying augmentations
-- Working for companies/factions
-- Installing augmentations
-
-## More Info
-
-- Full documentation: README.md
-- Repository: https://github.com/simonsavoca/bitburner
-- Game docs: https://github.com/bitburner-official/bitburner-src
+- **Full Guide**: See `AUTOMATION_GUIDE.md` for complete details
+- **README**: See `README.md` for technical documentation
+- **Repository**: https://github.com/simonsavoca/bitburner
+- **Game Docs**: https://github.com/bitburner-official/bitburner-src
 
 ---
-For detailed explanations, run: `run /scripts/help.js`
+
+**Need Help?** Check the Progression Orchestrator log:
+```bash
+tail /scripts/core/progression-orchestrator.js
+```
+
+It will guide you through each phase of the game! 🎮

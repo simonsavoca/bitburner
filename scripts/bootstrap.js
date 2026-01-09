@@ -9,11 +9,21 @@
 import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
 
 const SCRIPTS = {
+    // Core automation (always run)
     scanner: '/scripts/core/scanner.js',
     orchestrator: '/scripts/core/orchestrator.js',
     hacknetManager: '/scripts/core/hacknet-manager.js',
     serverManager: '/scripts/core/server-manager.js',
-    programManager: '/scripts/core/program-manager.js',
+    
+    // Singularity-based automation (requires SF4, 16x RAM cost without it)
+    singularityManager: '/scripts/core/singularity-manager.js',
+    factionManager: '/scripts/core/faction-manager.js',
+    statManager: '/scripts/core/stat-manager.js',
+    backdoorInstaller: '/scripts/core/backdoor-installer.js',
+    progressionOrchestrator: '/scripts/core/progression-orchestrator.js',
+    
+    // Utility automation
+    contractSolver: '/scripts/core/contract-solver.js',
 };
 
 export async function main(ns) {
@@ -21,7 +31,8 @@ export async function main(ns) {
     ns.tail();
     
     ns.print('╔════════════════════════════════════════╗');
-    ns.print('║   BITBURNER AUTOMATION SUITE v1.0      ║');
+    ns.print('║   BITBURNER AUTOMATION SUITE v2.0      ║');
+    ns.print('║   Full Automation Edition              ║');
     ns.print('╚════════════════════════════════════════╝\n');
     
     // Kill any existing instances of our scripts
@@ -118,22 +129,88 @@ export async function main(ns) {
     
     await ns.sleep(500);
     
-    // Start program manager (optional)
-    if (ns.getScriptRam(SCRIPTS.programManager) <= availableRAM - ns.getServerUsedRam('home')) {
-        const pid = ns.run(SCRIPTS.programManager);
+    // Start singularity manager (optional but highly recommended)
+    if (ns.getScriptRam(SCRIPTS.singularityManager) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.singularityManager);
         if (pid > 0) {
-            started.push('programManager');
-            ns.print('✓ Program manager started');
+            started.push('singularityManager');
+            ns.print('✓ Singularity manager started');
         } else {
-            failed.push('programManager');
+            failed.push('singularityManager');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start faction manager (optional)
+    if (ns.getScriptRam(SCRIPTS.factionManager) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.factionManager);
+        if (pid > 0) {
+            started.push('factionManager');
+            ns.print('✓ Faction manager started');
+        } else {
+            failed.push('factionManager');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start stat manager (optional)
+    if (ns.getScriptRam(SCRIPTS.statManager) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.statManager);
+        if (pid > 0) {
+            started.push('statManager');
+            ns.print('✓ Stat manager started');
+        } else {
+            failed.push('statManager');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start backdoor installer (optional)
+    if (ns.getScriptRam(SCRIPTS.backdoorInstaller) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.backdoorInstaller);
+        if (pid > 0) {
+            started.push('backdoorInstaller');
+            ns.print('✓ Backdoor installer started');
+        } else {
+            failed.push('backdoorInstaller');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start progression orchestrator (optional but recommended)
+    if (ns.getScriptRam(SCRIPTS.progressionOrchestrator) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.progressionOrchestrator);
+        if (pid > 0) {
+            started.push('progressionOrchestrator');
+            ns.print('✓ Progression orchestrator started');
+        } else {
+            failed.push('progressionOrchestrator');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start contract solver (optional)
+    if (ns.getScriptRam(SCRIPTS.contractSolver) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.contractSolver);
+        if (pid > 0) {
+            started.push('contractSolver');
+            ns.print('✓ Contract solver started');
+        } else {
+            failed.push('contractSolver');
         }
     }
     
     ns.print('\n════════════════════════════════════════');
-    ns.print(`Started: ${started.length} scripts`);
+    ns.print(`Started: ${started.length}/${Object.keys(SCRIPTS).length} scripts`);
     if (failed.length > 0) {
-        ns.print(`Failed: ${failed.length} scripts`);
+        ns.print(`Failed: ${failed.length} scripts: ${failed.join(', ')}`);
         ns.print('Consider upgrading home RAM for full automation');
+        ns.print('\nNote: Singularity functions require Source-File 4');
     }
     ns.print('════════════════════════════════════════\n');
     

@@ -29,12 +29,19 @@ const FILES = [
     { path: '/scripts/batch-hack.js', url: `${REPO_BASE}/scripts/batch-hack.js` },
     { path: '/scripts/network-browser.js', url: `${REPO_BASE}/scripts/network-browser.js` },
     
-    // Core scripts
+    // Core automation scripts
     { path: '/scripts/core/scanner.js', url: `${REPO_BASE}/scripts/core/scanner.js` },
     { path: '/scripts/core/orchestrator.js', url: `${REPO_BASE}/scripts/core/orchestrator.js` },
     { path: '/scripts/core/hacknet-manager.js', url: `${REPO_BASE}/scripts/core/hacknet-manager.js` },
     { path: '/scripts/core/server-manager.js', url: `${REPO_BASE}/scripts/core/server-manager.js` },
-    { path: '/scripts/core/program-manager.js', url: `${REPO_BASE}/scripts/core/program-manager.js` },
+    
+    // Advanced automation scripts (Singularity API - requires SF4)
+    { path: '/scripts/core/singularity-manager.js', url: `${REPO_BASE}/scripts/core/singularity-manager.js` },
+    { path: '/scripts/core/faction-manager.js', url: `${REPO_BASE}/scripts/core/faction-manager.js` },
+    { path: '/scripts/core/stat-manager.js', url: `${REPO_BASE}/scripts/core/stat-manager.js` },
+    { path: '/scripts/core/backdoor-installer.js', url: `${REPO_BASE}/scripts/core/backdoor-installer.js` },
+    { path: '/scripts/core/progression-orchestrator.js', url: `${REPO_BASE}/scripts/core/progression-orchestrator.js` },
+    { path: '/scripts/core/contract-solver.js', url: `${REPO_BASE}/scripts/core/contract-solver.js` },
     
     // Utility scripts
     { path: '/scripts/utils/server-utils.js', url: `${REPO_BASE}/scripts/utils/server-utils.js` },
@@ -51,7 +58,8 @@ export async function main(ns) {
     ns.tail();
     
     ns.print('╔════════════════════════════════════════════╗');
-    ns.print('║  BITBURNER AUTOMATION SUITE INSTALLER      ║');
+    ns.print('║  BITBURNER AUTOMATION SUITE v2.0           ║');
+    ns.print('║  Full Automation Edition - Installer       ║');
     ns.print('╚════════════════════════════════════════════╝\n');
     
     ns.print('This script will download and install all automation scripts.\n');
