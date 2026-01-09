@@ -1,13 +1,14 @@
-/** @param {NS} ns */
-import { hasAutoLink } from '/scripts/utils/server-utils.js';
-
 /**
  * Interactive Network Browser
  * Complements AutoLink.exe by providing detailed server information
  * and guiding users to use scan-analyze for clickable navigation
  * 
  * Usage: run network-browser.js [depth]
+ * 
+ * @param {NS} ns
  */
+
+import { hasAutoLink } from '/scripts/utils/server-utils.js';
 
 export async function main(ns) {
     const args = ns.flags([['help', false]]);
@@ -71,6 +72,11 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
     const visited = new Set();
     const hackingLevel = ns.getHackingLevel();
     
+    // Tree drawing constants
+    const TREE_BRANCH = '│ ';
+    const TREE_LAST = '  ';
+    const MILLION = 1e6;
+    
     function scanRecursive(server, depth = 0, prefix = '') {
         if (depth > maxDepth || visited.has(server)) return;
         visited.add(server);
@@ -89,7 +95,7 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
         if (server !== 'home') {
             info += ` (Lvl:${requiredLevel}, Ports:${portsNeeded}`;
             if (maxMoney > 0) {
-                info += `, $${(maxMoney / 1e6).toFixed(1)}m`;
+                info += `, $${(maxMoney / MILLION).toFixed(1)}m`;
             }
             info += ')';
             
@@ -108,7 +114,7 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
         
         for (let i = 0; i < children.length; i++) {
             const isLast = i === children.length - 1;
-            const newPrefix = indent + (isLast ? '  ' : '│ ');
+            const newPrefix = indent + (isLast ? TREE_LAST : TREE_BRANCH);
             scanRecursive(children[i], depth + 1, newPrefix);
         }
     }
