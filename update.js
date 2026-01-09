@@ -1,11 +1,11 @@
 /** @param {NS} ns */
 /**
- * Auto-deployment script for Bitburner Automation Suite
- * Downloads all scripts from the GitHub repository and starts the automation
+ * Update script for Bitburner Automation Suite
+ * Downloads the latest versions of all scripts from the GitHub repository
  * 
  * Usage: 
- *   wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/deploy.js deploy.js
- *   run deploy.js
+ *   wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/update.js update.js
+ *   run update.js
  */
 
 const REPO_BASE = 'https://raw.githubusercontent.com/simonsavoca/bitburner/main';
@@ -59,76 +59,119 @@ export async function main(ns) {
     
     ns.print('╔════════════════════════════════════════════╗');
     ns.print('║  BITBURNER AUTOMATION SUITE v2.0           ║');
-    ns.print('║  Full Automation Edition - Installer       ║');
+    ns.print('║  Update Script                             ║');
     ns.print('╚════════════════════════════════════════════╝\n');
     
-    ns.print('This script will download and install all automation scripts.\n');
+    ns.print('This script will update all automation scripts to the latest version.\n');
     
-    // Create directories
-    ns.print('Creating directory structure...');
-    // Note: Directories are created automatically when files are written
+    // Check if automation is running
+    const runningScripts = ns.ps('home');
+    const automationRunning = runningScripts.some(proc => 
+        proc.filename === '/scripts/bootstrap.js'
+    );
+    
+    if (automationRunning) {
+        ns.print('⚠ Automation suite is currently running.');
+        ns.print('Stopping automation to prevent conflicts...\n');
+        
+        // Kill the bootstrap script (which should stop everything)
+        ns.scriptKill('/scripts/bootstrap.js', 'home');
+        await ns.sleep(2000);
+        
+        // Kill any remaining automation scripts
+        const scriptsToKill = [
+            '/scripts/core/scanner.js',
+            '/scripts/core/orchestrator.js',
+            '/scripts/core/hacknet-manager.js',
+            '/scripts/core/server-manager.js',
+            '/scripts/core/singularity-manager.js',
+            '/scripts/core/faction-manager.js',
+            '/scripts/core/stat-manager.js',
+            '/scripts/core/backdoor-installer.js',
+            '/scripts/core/progression-orchestrator.js',
+            '/scripts/core/contract-solver.js',
+        ];
+        
+        for (const script of scriptsToKill) {
+            ns.scriptKill(script, 'home');
+        }
+        
+        await ns.sleep(1000);
+        ns.print('✓ Automation stopped\n');
+    }
     
     // Download all files
-    ns.print('\nDownloading scripts from repository...\n');
+    ns.print('Downloading latest versions from repository...\n');
     
     let successful = 0;
     let failed = 0;
+    const failedFiles = [];
     
     for (const file of FILES) {
-        ns.print(`Downloading: ${file.path}`);
+        ns.print(`Updating: ${file.path}`);
         
         try {
             const success = await ns.wget(file.url, file.path, 'home');
             
             if (success) {
-                ns.print(`  ✓ Success`);
+                ns.print(`  ✓ Updated`);
                 successful++;
             } else {
                 ns.print(`  ✗ Failed`);
                 failed++;
+                failedFiles.push(file.path);
             }
         } catch (error) {
             ns.print(`  ✗ Error: ${error}`);
             failed++;
+            failedFiles.push(file.path);
         }
         
         await ns.sleep(100); // Small delay between downloads
     }
     
     ns.print('\n════════════════════════════════════════════');
-    ns.print(`Downloaded: ${successful}/${FILES.length} files`);
+    ns.print(`Updated: ${successful}/${FILES.length} files`);
     
     if (failed > 0) {
         ns.print(`Failed: ${failed} files`);
-        ns.print('\nSome files failed to download.');
+        ns.print('\nFailed files:');
+        for (const file of failedFiles) {
+            ns.print(`  - ${file}`);
+        }
+        ns.print('\nSome files failed to update.');
         ns.print('Please check your internet connection and try again.');
         return;
     }
     
     ns.print('════════════════════════════════════════════\n');
     
-    ns.print('✓ Installation complete!\n');
+    ns.print('✓ Update complete!\n');
     
-    // Prompt to start
-    ns.print('Starting automation suite...\n');
-    await ns.sleep(1000);
-    
-    // Start the bootstrap script
-    const pid = ns.run('/scripts/bootstrap.js');
-    
-    if (pid > 0) {
-        ns.print('✓ Automation suite started successfully!');
-        ns.print('\nThe scripts are now running in the background.');
-        ns.print('You can close this window.\n');
-        ns.print('Use "tail bootstrap.js" to view the main status.');
+    // Ask about restarting automation
+    if (automationRunning) {
+        ns.print('Restarting automation suite...\n');
+        await ns.sleep(1000);
+        
+        // Start the bootstrap script
+        const pid = ns.run('/scripts/bootstrap.js');
+        
+        if (pid > 0) {
+            ns.print('✓ Automation suite restarted successfully!');
+            ns.print('\nThe updated scripts are now running in the background.');
+            ns.print('You can close this window.\n');
+            ns.print('Use "tail bootstrap.js" to view the main status.');
+        } else {
+            ns.print('✗ Failed to restart automation suite');
+            ns.print('You may need to run it manually:');
+            ns.print('  run /scripts/bootstrap.js');
+        }
     } else {
-        ns.print('✗ Failed to start automation suite');
-        ns.print('You may need to run it manually:');
+        ns.print('To start the automation suite, run:');
         ns.print('  run /scripts/bootstrap.js');
     }
     
     ns.print('\n════════════════════════════════════════════');
-    ns.print('For help and documentation, see:');
-    ns.print('https://github.com/simonsavoca/bitburner');
+    ns.print('Update complete! All scripts are up to date.');
     ns.print('════════════════════════════════════════════');
 }

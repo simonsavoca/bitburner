@@ -8,7 +8,7 @@ import { getRootedServers, getHackableServers } from '/scripts/utils/server-util
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     const UPDATE_INTERVAL = 5000; // Update every 5 seconds
     

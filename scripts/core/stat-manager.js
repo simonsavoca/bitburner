@@ -20,7 +20,7 @@ const EARLY_GAME_MONEY_THRESHOLD = 100000; // Use crime if below this amount
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     while (true) {
         ns.clearLog();

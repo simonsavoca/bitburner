@@ -218,6 +218,22 @@ run deploy.js
 3. Copy all scripts from the repository to the corresponding directories in-game
 4. Run `run /scripts/bootstrap.js`
 
+## 🔄 Updating Scripts
+
+To update your automation scripts to the latest version from the repository:
+
+```bash
+wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/update.js update.js
+run update.js
+```
+
+The update script will:
+- Stop any running automation (to prevent conflicts)
+- Download the latest versions of all scripts
+- Automatically restart the automation suite
+
+**Note:** You can run this anytime to get the latest features and bug fixes!
+
 ## RAM Requirements
 
 ### Basic Automation (Level 1)

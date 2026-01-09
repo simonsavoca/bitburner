@@ -15,7 +15,7 @@ const SCRIPT_RAM = 1.75; // RAM cost for each basic script
 
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     // Distribute scripts to all servers
     ns.print('Distributing scripts to all servers...');

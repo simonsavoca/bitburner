@@ -9,7 +9,7 @@ import { scanNetwork } from '/scripts/utils/server-utils.js';
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     // Important servers that give faction invitations when backdoored
     const FACTION_SERVERS = [

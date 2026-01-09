@@ -7,7 +7,7 @@ import { scanNetwork } from '/scripts/utils/server-utils.js';
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     while (true) {
         ns.clearLog();

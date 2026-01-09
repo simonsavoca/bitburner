@@ -83,6 +83,12 @@ tail /scripts/core/faction-manager.js  # Factions & augmentations
 
 ## 🛠 Common Commands
 
+### Update Scripts (Get Latest Version)
+```bash
+wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/update.js update.js
+run update.js
+```
+
 ### Restart Automation
 ```bash
 killall

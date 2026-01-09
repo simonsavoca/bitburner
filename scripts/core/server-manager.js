@@ -6,7 +6,7 @@ import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     const SERVER_PREFIX = 'pserv-';
     const MIN_RAM = 8; // Start with 8GB servers

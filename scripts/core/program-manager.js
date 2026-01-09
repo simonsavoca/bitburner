@@ -6,7 +6,7 @@ import { formatMoney } from '/scripts/utils/format-utils.js';
  */
 export async function main(ns) {
     ns.disableLog('ALL');
-    ns.tail();
+    ns.ui.openTail();
     
     // Programs in order of importance
     const PROGRAMS = [
