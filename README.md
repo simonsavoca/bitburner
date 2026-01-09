@@ -37,6 +37,12 @@ A comprehensive set of automation scripts for the Bitburner game that provides a
 
 ### Utility Scripts
 
+- **Network Browser** (`scripts/network-browser.js`)
+  - Interactive network visualization and navigation
+  - Leverages AutoLink.exe (when available) for clickable server links
+  - Shows server stats and hacking requirements
+  - Great for exploring the network
+
 - **Early Game Script** (`scripts/early-hack.js`)
   - Simple self-contained hacking script for beginners
   - Can run on any server with minimal RAM
@@ -97,6 +103,9 @@ wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/module
 
 # Download early game script
 wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/early-hack.js /scripts/early-hack.js
+
+# Download network browser (uses AutoLink.exe when available)
+wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/network-browser.js /scripts/network-browser.js
 
 # Start the automation suite
 run /scripts/bootstrap.js
@@ -248,6 +257,9 @@ run /scripts/core/hacknet-manager.js
 # View the dashboard
 run /scripts/dashboard.js
 
+# Browse network interactively (uses AutoLink.exe when available)
+run /scripts/network-browser.js
+
 # Use advanced batch hacking (for experienced players)
 run /scripts/batch-hack.js
 ```
@@ -280,6 +292,7 @@ scripts/
 ├── config.js                # Configuration file
 ├── early-hack.js            # Simple early-game script
 ├── dashboard.js             # Real-time statistics dashboard
+├── network-browser.js       # Interactive network browser (uses AutoLink.exe)
 ├── batch-hack.js            # Advanced batch hacking
 ├── core/
 │   ├── scanner.js           # Network scanner & rooter

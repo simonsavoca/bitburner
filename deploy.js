@@ -27,6 +27,7 @@ const FILES = [
     // Optional scripts
     { path: '/scripts/dashboard.js', url: `${REPO_BASE}/scripts/dashboard.js` },
     { path: '/scripts/batch-hack.js', url: `${REPO_BASE}/scripts/batch-hack.js` },
+    { path: '/scripts/network-browser.js', url: `${REPO_BASE}/scripts/network-browser.js` },
     
     // Core scripts
     { path: '/scripts/core/scanner.js', url: `${REPO_BASE}/scripts/core/scanner.js` },

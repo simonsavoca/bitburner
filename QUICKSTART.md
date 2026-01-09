@@ -44,6 +44,7 @@ killall
 
 ### Optional Scripts
 - `run /scripts/dashboard.js` - Statistics dashboard
+- `run /scripts/network-browser.js` - Interactive network browser (uses AutoLink.exe)
 - `run /scripts/batch-hack.js` - Advanced batching
 - `run /scripts/early-hack.js [target]` - Simple hacking
 
@@ -82,8 +83,9 @@ run /scripts/bootstrap.js
 1. **Home RAM**: Upgrade for more automation (need ~15-20 GB total)
 2. **Programs**: Buy from dark web to unlock more servers
 3. **TOR Router**: Must be purchased manually ($200k)
-4. **Patience**: Income grows exponentially over time
-5. **Dashboard**: Best way to monitor progress
+4. **AutoLink.exe**: Install to enable clickable server links in network-browser.js
+5. **Patience**: Income grows exponentially over time
+6. **Dashboard**: Best way to monitor progress
 
 ## Troubleshooting
 

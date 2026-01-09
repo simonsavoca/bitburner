@@ -4,6 +4,16 @@
  */
 
 /**
+ * Check if AutoLink.exe is available
+ * AutoLink.exe enables clickable server links in scan-analyze output
+ * @param {NS} ns
+ * @returns {boolean} True if AutoLink.exe is installed
+ */
+export function hasAutoLink(ns) {
+    return ns.fileExists('AutoLink.exe', 'home');
+}
+
+/**
  * Recursively scan the network and return all servers
  * @param {NS} ns
  * @param {string} currentServer - Server to scan from
