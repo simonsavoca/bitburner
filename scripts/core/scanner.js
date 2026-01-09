@@ -17,6 +17,13 @@ export async function main(ns) {
         if (now - lastScanTime >= SCAN_INTERVAL) {
             ns.clearLog();
             ns.print('=== Network Scanner ===');
+            
+            // Check for AutoLink.exe
+            const hasAutoLink = ns.fileExists('AutoLink.exe', 'home');
+            if (hasAutoLink) {
+                ns.print('✓ AutoLink.exe available - Use network-browser.js for interactive navigation');
+            }
+            
             ns.print('Scanning network for new servers...\n');
             
             const servers = scanNetwork(ns);
