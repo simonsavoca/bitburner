@@ -40,7 +40,7 @@ export async function main(ns) {
         ns.tprint('✓ AutoLink.exe is installed!');
         ns.tprint('');
         ns.tprint('TIP: For clickable server navigation, use the terminal command:');
-        ns.tprint('     scan-analyze ' + maxDepth);
+        ns.tprint(`     scan-analyze ${maxDepth}`);
         ns.tprint('');
         ns.tprint('     Then click any server name to automatically connect to it!');
         ns.tprint('');
@@ -102,7 +102,7 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
             if (!hasRoot && canHack) {
                 info += ' [Can Root!]';
             } else if (!hasRoot && !canHack) {
-                info += ' [Need Lvl ' + requiredLevel + ']';
+                info += ` [Need Lvl ${requiredLevel}]`;
             }
         }
         
@@ -124,7 +124,7 @@ function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
     ns.tprint('');
     ns.tprint('═════════════════════════════════════════');
     if (autoLinkAvailable) {
-        ns.tprint('Remember: Use "scan-analyze ' + maxDepth + '" for clickable navigation!');
+        ns.tprint(`Remember: Use "scan-analyze ${maxDepth}" for clickable navigation!`);
     } else {
         ns.tprint('Tip: Install AutoLink.exe for clickable server navigation!');
     }
