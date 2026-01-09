@@ -60,10 +60,13 @@ export function formatTime(ms) {
  * @returns {string}
  */
 export function formatPercent(value, decimals = 2) {
+    // Ensure decimals is a valid positive integer
+    const validDecimals = Number.isFinite(decimals) && decimals >= 0 ? Math.floor(decimals) : 2;
+    
     if (!Number.isFinite(value)) {
-        return `0.${'0'.repeat(decimals)}%`;
+        return `0.${'0'.repeat(validDecimals)}%`;
     }
-    return `${(value * 100).toFixed(decimals)}%`;
+    return `${(value * 100).toFixed(validDecimals)}%`;
 }
 
 /**
