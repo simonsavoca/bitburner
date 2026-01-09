@@ -1,10 +1,10 @@
-# Bitburner Automation Suite
+# Bitburner Automation Suite v2.0 - Full Automation Edition
 
-A comprehensive set of automation scripts for the Bitburner game that provides a fully automated gameplay experience.
+A comprehensive, fully-automated gameplay solution for the Bitburner game. This suite automates nearly every aspect of the game from start to finish, requiring minimal human intervention.
 
-## Features
+## 🎯 Full Automation Features
 
-### Core Automation Systems
+### Core Automation Systems (No SF4 Required)
 
 1. **Network Scanner** (`scripts/core/scanner.js`)
    - Automatically scans the entire network
@@ -30,10 +30,50 @@ A comprehensive set of automation scripts for the Bitburner game that provides a
    - Replaces old servers with better ones
    - Maximizes your total computing power
 
-5. **Program Manager** (`scripts/core/program-manager.js`)
+5. **Program Manager** (`scripts/core/program-manager.js`) - DEPRECATED
+   - Replaced by Singularity Manager for better automation
    - Tracks which programs you own
-   - Reminds you to purchase essential programs from the dark web
-   - Prioritizes port-opening programs
+   - Use Singularity Manager for automatic program creation/purchase
+
+### 🚀 Advanced Automation Systems (Requires Source-File 4)
+
+6. **Singularity Manager** (`scripts/core/singularity-manager.js`)
+   - Automatically purchases TOR router
+   - Creates programs when you have the required hacking level
+   - Purchases programs from the darkweb when affordable
+   - Automatically upgrades home RAM and cores
+   - Handles all automation that requires the Singularity API
+
+7. **Faction Manager** (`scripts/core/faction-manager.js`)
+   - Automatically accepts faction invitations
+   - Works for factions to gain reputation
+   - Purchases augmentations when you have enough rep and money
+   - Prioritizes expensive augmentations (to minimize cost scaling)
+   - Alerts when ready to install augmentations
+
+8. **Stat Training Manager** (`scripts/core/stat-manager.js`)
+   - Automatically trains stats to meet requirements
+   - Uses crime for free training (early game)
+   - Uses university/gym for faster training (late game)
+   - Trains hacking, combat stats, and charisma
+
+9. **Backdoor Installer** (`scripts/core/backdoor-installer.js`)
+   - Automatically installs backdoors on faction servers
+   - Required for CyberSec, NiteSec, BitRunners, etc.
+   - Navigates to servers and installs when you meet requirements
+
+10. **Progression Orchestrator** (`scripts/core/progression-orchestrator.js`)
+    - Master controller that coordinates all automation
+    - Determines current game phase (early, mid, late, endgame)
+    - Prioritizes activities based on progression
+    - Auto-installs augmentations when you have 10+ queued
+    - Guides you to complete the game
+
+11. **Coding Contract Solver** (`scripts/core/contract-solver.js`)
+    - Automatically finds coding contracts on the network
+    - Solves 20+ different contract types
+    - Provides rewards: money, reputation, faction invites
+    - Runs every 5 minutes to find new contracts
 
 ### Utility Scripts
 
@@ -68,7 +108,47 @@ A comprehensive set of automation scripts for the Bitburner game that provides a
   - Low RAM footprint (1.75 GB each)
   - Used by the orchestrator
 
-## Quick Start
+## 🎮 Automation Levels
+
+### Level 1: Basic Automation (No Source-Files Required)
+- Network scanning and rooting
+- Automated hacking operations
+- Hacknet node management
+- Server purchasing and upgrading
+
+**Human intervention needed:**
+- Purchasing TOR router manually
+- Buying programs from darkweb manually
+- Joining factions manually
+- Working for companies/factions manually
+- Buying and installing augmentations manually
+
+### Level 2: Full Automation (Requires Source-File 4)
+**Everything from Level 1, plus:**
+- Automatic TOR router purchase
+- Automatic program creation and purchase
+- Automatic home RAM/core upgrades
+- Automatic faction joining and reputation farming
+- Automatic augmentation purchasing
+- Automatic stat training (university/gym/crime)
+- Automatic backdoor installation
+- Automatic coding contract solving
+- Intelligent progression management
+- Auto-reset when ready (10+ augs queued)
+
+**Minimal human intervention needed:**
+- Initial game start (run deploy script)
+- Optionally: Manual augmentation installation trigger
+- Optionally: Endgame decisions (destroying w0r1d_d43m0n)
+
+### Level 3: Future Enhancements (Advanced Features)
+- Corporation automation (if you have access)
+- Gang automation (if you have access)
+- Bladeburner automation (if you have access)
+- Sleeve automation (if you have access)
+- Stock market automation (if you have access)
+
+## 🚀 Quick Start
 
 ### Method 1: Simple Deployment (In-Game)
 
@@ -140,15 +220,28 @@ run deploy.js
 
 ## RAM Requirements
 
-The automation suite requires approximately **15-20 GB** of RAM on your home server to run all components. Here's the breakdown:
+### Basic Automation (Level 1)
+The core automation suite requires approximately **15-20 GB** of RAM on your home server:
 
 - Scanner: ~2.5 GB
 - Orchestrator: ~6.0 GB
 - Hacknet Manager: ~4.0 GB
 - Server Manager: ~4.5 GB
-- Program Manager: ~2.5 GB
 
-If you don't have enough RAM, the bootstrap script will start only the essential components (scanner and orchestrator).
+### Full Automation (Level 2)
+The complete automation suite requires approximately **35-50 GB** of RAM on your home server:
+
+**All of Level 1, plus:**
+- Singularity Manager: ~6.5 GB (16x with no SF4)
+- Faction Manager: ~7.0 GB (16x with no SF4)
+- Stat Manager: ~6.0 GB (16x with no SF4)
+- Backdoor Installer: ~4.0 GB (16x with no SF4)
+- Progression Orchestrator: ~7.5 GB (16x with no SF4)
+- Contract Solver: ~5.0 GB
+
+**Note:** Without Source-File 4, Singularity functions cost 16x RAM, making full automation impractical. Focus on getting SF4 first!
+
+If you don't have enough RAM, the bootstrap script will start only the essential components that fit.
 
 ## Usage
 
@@ -161,11 +254,19 @@ run /scripts/bootstrap.js
 ### Viewing Individual Script Logs
 
 ```bash
+# Core automation
 tail /scripts/core/scanner.js
 tail /scripts/core/orchestrator.js
 tail /scripts/core/hacknet-manager.js
 tail /scripts/core/server-manager.js
-tail /scripts/core/program-manager.js
+
+# Advanced automation (SF4 required)
+tail /scripts/core/singularity-manager.js
+tail /scripts/core/faction-manager.js
+tail /scripts/core/stat-manager.js
+tail /scripts/core/backdoor-installer.js
+tail /scripts/core/progression-orchestrator.js
+tail /scripts/core/contract-solver.js
 ```
 
 ### Stopping All Automation
@@ -189,6 +290,8 @@ run early-hack.js foodnstuff
 ```
 
 ## How It Works
+
+### Core Systems (Level 1)
 
 ### Network Scanner
 - Continuously scans the network every 60 seconds
@@ -219,16 +322,75 @@ run early-hack.js foodnstuff
 - Replaces old servers with better ones when at server limit
 - Maximizes total computing power for hacking operations
 
+### Advanced Systems (Level 2 - SF4 Required)
+
+#### Singularity Manager
+- Automatically purchases TOR router when you have $200k
+- Creates programs if you have the hacking level (cheaper than buying)
+- Purchases programs from darkweb when needed
+- Upgrades home RAM when cost < 15% of current money
+- Upgrades home cores when cost < 15% of current money
+
+#### Faction Manager
+- Monitors faction invitations and automatically joins (avoiding conflicts)
+- Works for factions to gain reputation (prioritizes factions with most needed augs)
+- Purchases augmentations when you have enough rep and money
+- Prioritizes expensive augmentations first (they get more expensive as you buy more)
+- Alerts when you have 5+ augmentations queued (ready to install)
+
+#### Stat Training Manager
+- Monitors your stats vs. target thresholds
+- Determines which stat needs training most
+- Early game: Uses crime (free but slower)
+- Late game: Uses university/gym (costs money but faster)
+- Trains hacking, combat stats (str/def/dex/agi), and charisma
+
+#### Backdoor Installer
+- Identifies important faction servers (CSEC, avmnite-02h, I.I.I.I, etc.)
+- Installs backdoors when you have root and required hacking level
+- Required for faction invitations (CyberSec, NiteSec, BitRunners, etc.)
+- Automatically navigates to servers and returns home
+
+#### Progression Orchestrator
+- Determines what phase of the game you're in:
+  - **Early Game**: Focus on crime, basic hacking, first programs
+  - **Early-Mid Game**: Get port openers, expand network
+  - **Mid Game**: Join factions, gain rep, buy augmentations
+  - **Late Game**: Maximize augmentations before reset
+  - **Ready to Install**: 5+ augs queued, auto-installs at 10+
+  - **End Game**: Hack w0r1d_d43m0n and win!
+- Coordinates activities based on current phase
+- Auto-installs augmentations when you have 10+ queued
+
+#### Coding Contract Solver
+- Scans entire network for .cct files every 5 minutes
+- Solves 20+ different contract types automatically
+- Rewards include money, reputation, and faction invites
+- Handles complex algorithms like stock trading, pathfinding, etc.
+
 ## Tips for Best Results
 
+### For Everyone
 1. **Let it run**: The automation works best when left running continuously
 2. **Upgrade home RAM**: More home RAM = more automation scripts running
-3. **Buy programs**: Purchase port-opening programs from the dark web to unlock more servers
-4. **Manual tasks**: Some things still need manual intervention:
-   - Purchasing the TOR router
-   - Buying programs from the dark web (initially)
-   - Joining factions and buying augmentations
+3. **Be patient**: Income and progress grow exponentially over time
+
+### Without Source-File 4
+1. **Focus on getting SF4**: Complete BitNode-4 to unlock Singularity functions
+2. **Manual tasks required**:
+   - Purchasing the TOR router ($200k from Alpha Enterprises)
+   - Buying programs from the dark web
+   - Joining factions when invited
    - Working for companies or factions for reputation
+   - Buying augmentations
+   - Installing augmentations
+
+### With Source-File 4
+1. **Full automation enabled**: Just run the bootstrap and let it work
+2. **Monitor the Progression Orchestrator**: It will guide you through game phases
+3. **RAM is critical**: Singularity functions cost RAM (16x/4x/1x based on SF4 level)
+4. **Auto-install threshold**: Augmentations auto-install at 10+ queued (configurable)
+5. **Manual override available**: You can always take manual control if needed
 
 ## Advanced Usage
 
@@ -245,69 +407,135 @@ You can modify the scripts to adjust behavior:
 You can run components separately if needed:
 
 ```bash
-# Just run the network scanner
+# Core automation (always available)
 run /scripts/core/scanner.js
-
-# Just run the orchestrator
 run /scripts/core/orchestrator.js
-
-# Just manage hacknet nodes
 run /scripts/core/hacknet-manager.js
+run /scripts/core/server-manager.js
 
-# View the dashboard
+# Advanced automation (requires SF4)
+run /scripts/core/singularity-manager.js
+run /scripts/core/faction-manager.js
+run /scripts/core/stat-manager.js
+run /scripts/core/backdoor-installer.js
+run /scripts/core/progression-orchestrator.js
+run /scripts/core/contract-solver.js
+
+# Utility scripts
 run /scripts/dashboard.js
-
-# Browse network interactively (uses AutoLink.exe when available)
 run /scripts/network-browser.js
-
-# Use advanced batch hacking (for experienced players)
 run /scripts/batch-hack.js
+run /scripts/early-hack.js [target]
 ```
 
 ## Troubleshooting
 
 ### "Not enough RAM" error
-- Upgrade your home server RAM
+- Upgrade your home server RAM (Singularity Manager does this automatically with SF4)
 - Run fewer components
-- Use the early-game script instead
+- Use the early-game script instead: `run /scripts/early-hack.js n00dles`
+- Without SF4: Singularity functions cost 16x RAM, so you need ~500GB+ for full automation
 
-### Scripts not finding target servers
-- Wait for the scanner to run (60 second intervals)
-- Make sure you have port-opening programs
-- Check if you have enough hacking level
+### Scripts not running or behaving oddly
+- Check if you have Source-File 4 access (required for advanced automation)
+- Without SF4, Singularity scripts will fail or consume too much RAM
+- Check the Progression Orchestrator log for guidance: `tail progression-orchestrator.js`
 
 ### Low income generation
 - Normal in early game
 - Income increases as you:
-  - Gain hacking levels
-  - Purchase more servers
-  - Unlock more hacknet nodes
-  - Root more servers in the network
+  - Gain hacking levels (automatic with stat manager)
+  - Purchase more servers (automatic with server manager)
+  - Unlock more hacknet nodes (automatic with hacknet manager)
+  - Root more servers in the network (automatic with scanner)
+  - Install augmentations (semi-automatic with faction manager)
 
 ## File Structure
 
 ```
 scripts/
-├── bootstrap.js              # Main entry point
-├── config.js                # Configuration file
-├── early-hack.js            # Simple early-game script
-├── dashboard.js             # Real-time statistics dashboard
-├── network-browser.js       # Interactive network browser (uses AutoLink.exe)
-├── batch-hack.js            # Advanced batch hacking
+├── bootstrap.js                    # Main entry point (starts all automation)
+├── config.js                       # Configuration file
+├── early-hack.js                   # Simple early-game script
+├── dashboard.js                    # Real-time statistics dashboard
+├── network-browser.js              # Interactive network browser (uses AutoLink.exe)
+├── batch-hack.js                   # Advanced batch hacking
 ├── core/
-│   ├── scanner.js           # Network scanner & rooter
-│   ├── orchestrator.js      # Main hacking coordinator
-│   ├── hacknet-manager.js   # Hacknet automation
-│   ├── server-manager.js    # Server purchase/upgrade
-│   └── program-manager.js   # Program tracking
+│   ├── scanner.js                  # Network scanner & rooter
+│   ├── orchestrator.js             # Main hacking coordinator
+│   ├── hacknet-manager.js          # Hacknet automation
+│   ├── server-manager.js           # Server purchase/upgrade
+│   ├── singularity-manager.js      # TOR, programs, home upgrades (SF4)
+│   ├── faction-manager.js          # Faction & augmentation automation (SF4)
+│   ├── stat-manager.js             # Stat training automation (SF4)
+│   ├── backdoor-installer.js       # Backdoor automation (SF4)
+│   ├── progression-orchestrator.js # Master controller (SF4)
+│   └── contract-solver.js          # Coding contract solver
 ├── utils/
-│   ├── server-utils.js      # Server helper functions
-│   └── format-utils.js      # Formatting functions
+│   ├── server-utils.js             # Server helper functions
+│   └── format-utils.js             # Formatting functions
 └── modules/
-    ├── hack.js              # Hack module
-    ├── grow.js              # Grow module
-    └── weaken.js            # Weaken module
+    ├── hack.js                     # Hack module
+    ├── grow.js                     # Grow module
+    └── weaken.js                   # Weaken module
 ```
+
+## Progression Guide
+
+### Phase 1: Early Game (No SF4)
+1. Run `deploy.js` to install all scripts
+2. The core automation will handle basic hacking
+3. Manually purchase TOR router when you have $200k
+4. Manually buy programs from darkweb
+5. Manually join factions when invited
+6. Manually work for factions to gain rep
+7. Manually buy and install augmentations
+8. **Goal**: Get to BitNode-4 to unlock Singularity functions
+
+### Phase 2: Full Automation (With SF4)
+1. Run `deploy.js` again (or just `bootstrap.js`)
+2. **All systems GO** - full automation enabled!
+3. Watch the Progression Orchestrator guide you through phases
+4. Sit back and watch the automation work
+5. Optional: Monitor individual script logs to see progress
+6. The system will auto-install augmentations at 10+ queued
+
+### Phase 3: Endgame
+1. Automation will guide you to hack w0r1d_d43m0n
+2. Install backdoor on w0r1d_d43m0n when ready
+3. Destroy w0r1d_d43m0n to complete the BitNode
+4. Move to next BitNode and repeat!
+
+## What Gets Automated
+
+### ✅ Fully Automated (With SF4)
+- Network scanning and rooting
+- Hacking operations (hack/grow/weaken)
+- Hacknet node purchasing and upgrading
+- Server purchasing and upgrading
+- TOR router purchase
+- Program creation and purchase
+- Home RAM and core upgrades
+- Faction joining (avoiding conflicts)
+- Faction work (reputation farming)
+- Augmentation purchasing
+- Stat training (university/gym/crime)
+- Backdoor installation
+- Coding contract solving
+- Progression management
+- Augmentation installation (auto at 10+ queued)
+
+### ⚠️ Semi-Automated
+- Final augmentation installation (auto at 10+ queued, or manual trigger)
+- BitNode completion (automation guides, but you choose when)
+
+### ❌ Not Automated (Yet)
+- Corporation (future enhancement)
+- Gang (future enhancement)
+- Bladeburner (future enhancement)
+- Sleeves (future enhancement)
+- Stock market (future enhancement)
+- Stanek's Gift (future enhancement)
 
 ## Contributing
 
