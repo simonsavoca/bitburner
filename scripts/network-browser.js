@@ -1,8 +1,8 @@
 /** @param {NS} ns */
 /**
  * Interactive Network Browser
- * Uses AutoLink.exe (when available) to provide clickable server links
- * for easy network navigation and exploration
+ * Complements AutoLink.exe by providing detailed server information
+ * and guiding users to use scan-analyze for clickable navigation
  * 
  * Usage: run network-browser.js [depth]
  */
@@ -11,16 +11,16 @@ export async function main(ns) {
     const args = ns.flags([['help', false]]);
     
     if (args.help) {
-        ns.tprint('Network Browser - Interactive network visualization');
+        ns.tprint('Network Browser - Detailed network visualization');
         ns.tprint('Usage: run network-browser.js [depth]');
         ns.tprint('');
         ns.tprint('Arguments:');
         ns.tprint('  depth - Maximum depth to scan (default: 3)');
         ns.tprint('');
         ns.tprint('Features:');
-        ns.tprint('  - When AutoLink.exe is installed, server names are clickable');
         ns.tprint('  - Shows hacking requirements and server stats');
         ns.tprint('  - Highlights servers you can root');
+        ns.tprint('  - Guides you to use AutoLink.exe when available');
         return;
     }
     
@@ -34,32 +34,38 @@ export async function main(ns) {
     ns.tprint('');
     
     if (hasAutoLink) {
-        ns.tprint('✓ AutoLink.exe detected - server names are clickable!');
-        ns.tprint('  Click on any server name below to connect to it.');
+        ns.tprint('✓ AutoLink.exe is installed!');
         ns.tprint('');
-        
-        // Use scan-analyze which benefits from AutoLink.exe
-        ns.tprint('Running scan-analyze for interactive navigation...');
+        ns.tprint('TIP: For clickable server navigation, use the terminal command:');
+        ns.tprint('     scan-analyze ' + maxDepth);
         ns.tprint('');
-        ns.run('/bin/scan-analyze.js', 1, maxDepth.toString());
-        
+        ns.tprint('     Then click any server name to automatically connect to it!');
+        ns.tprint('');
+        ns.tprint('═════════════════════════════════════════');
+        ns.tprint('');
     } else {
-        ns.tprint('○ AutoLink.exe not found');
-        ns.tprint('  Install AutoLink.exe from the dark web to enable clickable server links!');
-        ns.tprint('  For now, showing manual network analysis...');
+        ns.tprint('○ AutoLink.exe not installed');
         ns.tprint('');
-        
-        // Fallback: Display network information manually
-        displayNetworkInfo(ns, maxDepth);
+        ns.tprint('TIP: Purchase AutoLink.exe from the dark web to enable');
+        ns.tprint('     clickable server links in scan-analyze output!');
+        ns.tprint('');
+        ns.tprint('═════════════════════════════════════════');
+        ns.tprint('');
     }
+    
+    ns.tprint('Detailed Network Analysis:\n');
+    
+    // Display detailed network information
+    displayNetworkInfo(ns, maxDepth, hasAutoLink);
 }
 
 /**
- * Display network information without AutoLink.exe
+ * Display detailed network information
  * @param {NS} ns
  * @param {number} maxDepth
+ * @param {boolean} hasAutoLink
  */
-function displayNetworkInfo(ns, maxDepth) {
+function displayNetworkInfo(ns, maxDepth, hasAutoLink) {
     const visited = new Set();
     const hackingLevel = ns.getHackingLevel();
     
@@ -109,7 +115,10 @@ function displayNetworkInfo(ns, maxDepth) {
     
     ns.tprint('');
     ns.tprint('═════════════════════════════════════════');
-    ns.tprint('Tip: Install AutoLink.exe for clickable server navigation!');
-    ns.tprint('Purchase it from the dark web for enhanced network browsing.');
+    if (hasAutoLink) {
+        ns.tprint('Remember: Use "scan-analyze ' + maxDepth + '" for clickable navigation!');
+    } else {
+        ns.tprint('Tip: Install AutoLink.exe for clickable server navigation!');
+    }
     ns.tprint('═════════════════════════════════════════');
 }
