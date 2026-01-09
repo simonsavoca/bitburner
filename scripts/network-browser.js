@@ -1,4 +1,6 @@
 /** @param {NS} ns */
+import { hasAutoLink } from '/scripts/utils/server-utils.js';
+
 /**
  * Interactive Network Browser
  * Complements AutoLink.exe by providing detailed server information
@@ -25,7 +27,7 @@ export async function main(ns) {
     }
     
     const maxDepth = args._[0] || 3;
-    const hasAutoLink = ns.fileExists('AutoLink.exe', 'home');
+    const autoLinkAvailable = hasAutoLink(ns);
     
     ns.tprint('');
     ns.tprint('╔════════════════════════════════════════╗');
@@ -33,7 +35,7 @@ export async function main(ns) {
     ns.tprint('╚════════════════════════════════════════╝');
     ns.tprint('');
     
-    if (hasAutoLink) {
+    if (autoLinkAvailable) {
         ns.tprint('✓ AutoLink.exe is installed!');
         ns.tprint('');
         ns.tprint('TIP: For clickable server navigation, use the terminal command:');
@@ -56,16 +58,16 @@ export async function main(ns) {
     ns.tprint('Detailed Network Analysis:\n');
     
     // Display detailed network information
-    displayNetworkInfo(ns, maxDepth, hasAutoLink);
+    displayNetworkInfo(ns, maxDepth, autoLinkAvailable);
 }
 
 /**
  * Display detailed network information
  * @param {NS} ns
  * @param {number} maxDepth
- * @param {boolean} hasAutoLink
+ * @param {boolean} autoLinkAvailable
  */
-function displayNetworkInfo(ns, maxDepth, hasAutoLink) {
+function displayNetworkInfo(ns, maxDepth, autoLinkAvailable) {
     const visited = new Set();
     const hackingLevel = ns.getHackingLevel();
     
@@ -115,7 +117,7 @@ function displayNetworkInfo(ns, maxDepth, hasAutoLink) {
     
     ns.tprint('');
     ns.tprint('═════════════════════════════════════════');
-    if (hasAutoLink) {
+    if (autoLinkAvailable) {
         ns.tprint('Remember: Use "scan-analyze ' + maxDepth + '" for clickable navigation!');
     } else {
         ns.tprint('Tip: Install AutoLink.exe for clickable server navigation!');

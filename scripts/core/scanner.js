@@ -1,5 +1,5 @@
 /** @param {NS} ns */
-import { scanNetwork, tryNuke } from '/scripts/utils/server-utils.js';
+import { scanNetwork, tryNuke, hasAutoLink } from '/scripts/utils/server-utils.js';
 
 /**
  * Automatically scan network and gain root access to all possible servers
@@ -19,8 +19,7 @@ export async function main(ns) {
             ns.print('=== Network Scanner ===');
             
             // Check for AutoLink.exe
-            const hasAutoLink = ns.fileExists('AutoLink.exe', 'home');
-            if (hasAutoLink) {
+            if (hasAutoLink(ns)) {
                 ns.print('✓ AutoLink.exe available - Use network-browser.js for interactive navigation');
             }
             
