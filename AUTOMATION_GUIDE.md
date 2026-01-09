@@ -55,6 +55,20 @@ Or check individual components:
 tail /scripts/core/progression-orchestrator.js
 ```
 
+### Step 4: Update Scripts (When Needed)
+
+To get the latest features and bug fixes:
+
+```bash
+wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/update.js update.js
+run update.js
+```
+
+The update script will:
+- Stop running automation
+- Download latest versions of all scripts
+- Restart automation automatically
+
 ## Automation Levels
 
 ### Level 1: Basic Automation (No Source-File 4)
