@@ -42,6 +42,21 @@ A comprehensive set of automation scripts for the Bitburner game that provides a
   - Can run on any server with minimal RAM
   - Great for learning and early progression
 
+- **Dashboard** (`scripts/dashboard.js`)
+  - Real-time overview of your game state
+  - Shows income, servers, skills, and automation status
+  - Updates every 5 seconds
+
+- **Batch Hacking** (`scripts/batch-hack.js`)
+  - Advanced HWGW (Hack-Weaken-Grow-Weaken) batching
+  - More efficient than basic orchestrator
+  - Requires more RAM and experience
+
+- **Configuration** (`scripts/config.js`)
+  - Central configuration for all automation scripts
+  - Easy to modify thresholds and parameters
+  - No need to edit individual scripts
+
 - **Modular Scripts** (`scripts/modules/`)
   - Separate hack/grow/weaken scripts for efficient threading
   - Low RAM footprint (1.75 GB each)
@@ -229,6 +244,12 @@ run /scripts/core/orchestrator.js
 
 # Just manage hacknet nodes
 run /scripts/core/hacknet-manager.js
+
+# View the dashboard
+run /scripts/dashboard.js
+
+# Use advanced batch hacking (for experienced players)
+run /scripts/batch-hack.js
 ```
 
 ## Troubleshooting
@@ -256,7 +277,10 @@ run /scripts/core/hacknet-manager.js
 ```
 scripts/
 ├── bootstrap.js              # Main entry point
+├── config.js                # Configuration file
 ├── early-hack.js            # Simple early-game script
+├── dashboard.js             # Real-time statistics dashboard
+├── batch-hack.js            # Advanced batch hacking
 ├── core/
 │   ├── scanner.js           # Network scanner & rooter
 │   ├── orchestrator.js      # Main hacking coordinator

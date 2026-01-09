@@ -14,8 +14,16 @@ const FILES = [
     // Bootstrap
     { path: '/scripts/bootstrap.js', url: `${REPO_BASE}/scripts/bootstrap.js` },
     
+    // Configuration and help
+    { path: '/scripts/config.js', url: `${REPO_BASE}/scripts/config.js` },
+    { path: '/scripts/help.js', url: `${REPO_BASE}/scripts/help.js` },
+    
     // Early game
     { path: '/scripts/early-hack.js', url: `${REPO_BASE}/scripts/early-hack.js` },
+    
+    // Optional scripts
+    { path: '/scripts/dashboard.js', url: `${REPO_BASE}/scripts/dashboard.js` },
+    { path: '/scripts/batch-hack.js', url: `${REPO_BASE}/scripts/batch-hack.js` },
     
     // Core scripts
     { path: '/scripts/core/scanner.js', url: `${REPO_BASE}/scripts/core/scanner.js` },
