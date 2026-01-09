@@ -18,6 +18,9 @@ const FILES = [
     { path: '/scripts/config.js', url: `${REPO_BASE}/scripts/config.js` },
     { path: '/scripts/help.js', url: `${REPO_BASE}/scripts/help.js` },
     
+    // Documentation
+    { path: '/QUICKSTART.txt', url: `${REPO_BASE}/QUICKSTART.md` },
+    
     // Early game
     { path: '/scripts/early-hack.js', url: `${REPO_BASE}/scripts/early-hack.js` },
     
