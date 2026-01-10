@@ -45,6 +45,7 @@ export async function main(ns) {
     ns.tprint('Optional Scripts:');
     ns.tprint('  run /scripts/dashboard.js             - Statistics dashboard');
     ns.tprint('  run /scripts/network-browser.js       - Interactive network browser (uses AutoLink.exe)');
+    ns.tprint('  run /scripts/list-no-backdoor.js      - List servers without backdoor');
     ns.tprint('  run /scripts/batch-hack.js            - Advanced batching');
     ns.tprint('  run /scripts/early-hack.js [target]   - Simple hacking');
     ns.tprint('');

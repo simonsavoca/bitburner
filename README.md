@@ -83,6 +83,12 @@ A comprehensive, fully-automated gameplay solution for the Bitburner game. This 
   - Shows server stats and hacking requirements
   - Great for exploring the network
 
+- **List Servers Without Backdoor** (`scripts/list-no-backdoor.js`)
+  - Lists all servers without backdoor installed
+  - Shows which servers you can backdoor right now
+  - Useful for early game tracking and progression
+  - Use `--all` flag to see all servers including those you can't access yet
+
 - **Early Game Script** (`scripts/early-hack.js`)
   - Simple self-contained hacking script for beginners
   - Can run on any server with minimal RAM
@@ -186,6 +192,9 @@ wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/early-
 
 # Download network browser (uses AutoLink.exe when available)
 wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/network-browser.js /scripts/network-browser.js
+
+# Download server listing utility
+wget https://raw.githubusercontent.com/simonsavoca/bitburner/main/scripts/list-no-backdoor.js /scripts/list-no-backdoor.js
 
 # Start the automation suite
 run /scripts/bootstrap.js
@@ -440,6 +449,7 @@ run /scripts/core/contract-solver.js
 # Utility scripts
 run /scripts/dashboard.js
 run /scripts/network-browser.js
+run /scripts/list-no-backdoor.js
 run /scripts/batch-hack.js
 run /scripts/early-hack.js [target]
 ```
@@ -475,6 +485,7 @@ scripts/
 ├── early-hack.js                   # Simple early-game script
 ├── dashboard.js                    # Real-time statistics dashboard
 ├── network-browser.js              # Interactive network browser (uses AutoLink.exe)
+├── list-no-backdoor.js             # List servers without backdoor
 ├── batch-hack.js                   # Advanced batch hacking
 ├── core/
 │   ├── scanner.js                  # Network scanner & rooter
