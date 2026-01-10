@@ -150,8 +150,15 @@ export async function main(ns) {
     ns.tprint('  4. Return home: home');
     ns.tprint('');
     
-    // Check if Singularity API is available
-    const hasSingularity = ns.fileExists('Formulas.exe', 'home') || player.bitNodeN === 4;
+    // Check if Singularity API is available (requires Source-File 4)
+    let hasSingularity = false;
+    try {
+        // Try to call a Singularity function - it will throw if not available
+        ns.singularity.getOwnedAugmentations();
+        hasSingularity = true;
+    } catch {
+        hasSingularity = false;
+    }
     
     if (hasSingularity) {
         ns.tprint('✓ You have Singularity API access!');
