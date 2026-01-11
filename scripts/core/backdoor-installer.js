@@ -25,10 +25,11 @@ export async function main(ns) {
             // Skip home server
             if (server === 'home') continue;
             
-            const hasRoot = ns.hasRootAccess(server);
-            const reqLevel = ns.getServerRequiredHackingLevel(server);
+            const serverInfo = ns.getServer(server);
+            const hasRoot = serverInfo.hasAdminRights;
+            const reqLevel = serverInfo.requiredHackingSkill;
             const canHack = player.skills.hacking >= reqLevel;
-            const hasBackdoor = ns.getServer(server).backdoorInstalled;
+            const hasBackdoor = serverInfo.backdoorInstalled;
             
             targets.push({
                 server,
