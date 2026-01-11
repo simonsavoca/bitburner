@@ -2,23 +2,14 @@
 import { scanNetwork } from '/scripts/utils/server-utils.js';
 
 /**
- * Automatically installs backdoors on important faction servers
- * Backdoors are required for some faction invitations
+ * Automatically installs backdoors on all accessible servers
+ * Backdoors are required for some faction invitations and provide benefits
  * 
  * Note: Requires Source-File 4 access
  */
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.ui.openTail();
-    
-    // Important servers that give faction invitations when backdoored
-    const FACTION_SERVERS = [
-        'CSEC',           // CyberSec
-        'avmnite-02h',    // NiteSec
-        'I.I.I.I',        // The Black Hand
-        'run4theh111z',   // Bitrunners
-        'w0r1d_d43m0n'    // Daedalus (endgame)
-    ];
     
     while (true) {
         ns.clearLog();
@@ -27,64 +18,89 @@ export async function main(ns) {
         const player = ns.getPlayer();
         const allServers = scanNetwork(ns);
         
-        // Find faction servers we can access
+        // Find all servers we can backdoor
         const targets = [];
         
         for (const server of allServers) {
-            if (FACTION_SERVERS.includes(server)) {
-                const hasRoot = ns.hasRootAccess(server);
-                const reqLevel = ns.getServerRequiredHackingLevel(server);
-                const canHack = player.skills.hacking >= reqLevel;
-                const hasBackdoor = ns.getServer(server).backdoorInstalled;
-                
-                targets.push({
-                    server,
-                    hasRoot,
-                    canHack,
-                    hasBackdoor,
-                    reqLevel
-                });
+            // Skip home server and player-owned servers (cannot be backdoored)
+            if (server === 'home') continue;
+            if (server.startsWith('hacknet-server-')) continue;
+            if (server.startsWith('pserv-')) continue;
+            
+            const serverInfo = ns.getServer(server);
+            const hasRoot = serverInfo.hasAdminRights;
+            const reqLevel = serverInfo.requiredHackingSkill;
+            const canHack = player.skills.hacking >= reqLevel;
+            const hasBackdoor = serverInfo.backdoorInstalled;
+            
+            targets.push({
+                server,
+                hasRoot,
+                canHack,
+                hasBackdoor,
+                reqLevel
+            });
+        }
+        
+        // Separate servers by status for organized display
+        const backdoored = [];
+        const canBackdoor = [];
+        const needRoot = [];
+        const needLevel = [];
+        
+        for (const target of targets) {
+            if (target.hasBackdoor) {
+                backdoored.push(target);
+            } else if (!target.hasRoot) {
+                needRoot.push(target);
+            } else if (!target.canHack) {
+                needLevel.push(target);
+            } else {
+                canBackdoor.push(target);
             }
         }
         
-        if (targets.length === 0) {
-            ns.print('No faction servers found yet');
-        } else {
-            for (const target of targets) {
-                ns.print(`${target.server}:`);
+        ns.print(`Total Servers: ${targets.length}`);
+        ns.print(`Backdoored: ${backdoored.length}`);
+        ns.print(`Can Backdoor Now: ${canBackdoor.length}`);
+        ns.print(`Need Root: ${needRoot.length}`);
+        ns.print(`Need Hacking Level: ${needLevel.length}\n`);
+        
+        // Install backdoors on servers we can access
+        if (canBackdoor.length > 0) {
+            ns.print('=== Installing Backdoors ===\n');
+            
+            // Sort by required level (easiest first)
+            canBackdoor.sort((a, b) => a.reqLevel - b.reqLevel);
+            
+            for (const target of canBackdoor) {
+                ns.print(`${target.server} (Lvl ${target.reqLevel}):`);
+                ns.print(`  ⏳ Installing backdoor...`);
                 
-                if (target.hasBackdoor) {
-                    ns.print(`  ✓ Backdoor installed`);
-                } else if (!target.hasRoot) {
-                    ns.print(`  ✗ Need root access`);
-                } else if (!target.canHack) {
-                    ns.print(`  ✗ Need hacking ${target.reqLevel} (have ${player.skills.hacking})`);
-                } else {
-                    ns.print(`  ⏳ Installing backdoor...`);
-                    
-                    // Connect to the server and install backdoor
-                    const path = findPath(ns, 'home', target.server);
-                    
-                    if (path) {
-                        // Navigate to server
-                        for (const hop of path) {
-                            ns.singularity.connect(hop);
-                        }
-                        
-                        // Install backdoor
-                        await ns.singularity.installBackdoor();
-                        
-                        // Return home
-                        ns.singularity.connect('home');
-                        
-                        ns.print(`  ✓ Backdoor installed!`);
-                    } else {
-                        ns.print(`  ✗ Cannot find path to server`);
+                // Connect to the server and install backdoor
+                const path = findPath(ns, 'home', target.server);
+                
+                if (path) {
+                    // Navigate to server
+                    for (const hop of path) {
+                        ns.singularity.connect(hop);
                     }
+                    
+                    // Install backdoor
+                    await ns.singularity.installBackdoor();
+                    
+                    // Return home
+                    ns.singularity.connect('home');
+                    
+                    ns.print(`  ✓ Backdoor installed!`);
+                } else {
+                    ns.print(`  ✗ Cannot find path to server`);
                 }
                 
                 ns.print('');
             }
+        } else {
+            ns.print('✓ All accessible servers have backdoors installed!\n');
         }
         
         await ns.sleep(300000); // Check every 5 minutes

@@ -58,8 +58,9 @@ A comprehensive, fully-automated gameplay solution for the Bitburner game. This 
    - Trains hacking, combat stats, and charisma
 
 9. **Backdoor Installer** (`scripts/core/backdoor-installer.js`)
-   - Automatically installs backdoors on faction servers
-   - Required for CyberSec, NiteSec, BitRunners, etc.
+   - Automatically installs backdoors on all accessible servers
+   - Required for faction invitations (CyberSec, NiteSec, BitRunners, etc.)
+   - Provides benefits on all servers when backdoored
    - Navigates to servers and installs when you meet requirements
 
 10. **Progression Orchestrator** (`scripts/core/progression-orchestrator.js`)
@@ -371,9 +372,10 @@ run early-hack.js foodnstuff
 - Trains hacking, combat stats (str/def/dex/agi), and charisma
 
 #### Backdoor Installer
-- Identifies important faction servers (CSEC, avmnite-02h, I.I.I.I, etc.)
-- Installs backdoors when you have root and required hacking level
+- Identifies all servers in the network
+- Installs backdoors on all servers when you have root and required hacking level
 - Required for faction invitations (CyberSec, NiteSec, BitRunners, etc.)
+- Provides benefits on all backdoored servers
 - Automatically navigates to servers and returns home
 
 #### Progression Orchestrator
