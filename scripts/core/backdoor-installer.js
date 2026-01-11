@@ -40,10 +40,22 @@ export async function main(ns) {
         }
         
         // Separate servers by status for organized display
-        const backdoored = targets.filter(t => t.hasBackdoor);
-        const canBackdoor = targets.filter(t => !t.hasBackdoor && t.hasRoot && t.canHack);
-        const needRoot = targets.filter(t => !t.hasBackdoor && !t.hasRoot);
-        const needLevel = targets.filter(t => !t.hasBackdoor && t.hasRoot && !t.canHack);
+        const backdoored = [];
+        const canBackdoor = [];
+        const needRoot = [];
+        const needLevel = [];
+        
+        for (const target of targets) {
+            if (target.hasBackdoor) {
+                backdoored.push(target);
+            } else if (!target.hasRoot) {
+                needRoot.push(target);
+            } else if (!target.canHack) {
+                needLevel.push(target);
+            } else {
+                canBackdoor.push(target);
+            }
+        }
         
         ns.print(`Total Servers: ${targets.length}`);
         ns.print(`Backdoored: ${backdoored.length}`);
