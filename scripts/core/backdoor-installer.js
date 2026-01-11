@@ -22,8 +22,10 @@ export async function main(ns) {
         const targets = [];
         
         for (const server of allServers) {
-            // Skip home server
+            // Skip home server and player-owned servers (cannot be backdoored)
             if (server === 'home') continue;
+            if (server.startsWith('hacknet-server-')) continue;
+            if (server.startsWith('pserv-')) continue;
             
             const serverInfo = ns.getServer(server);
             const hasRoot = serverInfo.hasAdminRights;
