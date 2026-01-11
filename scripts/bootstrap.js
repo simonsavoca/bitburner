@@ -11,6 +11,7 @@ import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
 const SCRIPTS = {
     // Core automation (always run)
     scanner: '/scripts/core/scanner.js',
+    orchestrator: '/scripts/core/orchestrator.js',
     hacknetManager: '/scripts/core/hacknet-manager.js',
     serverManager: '/scripts/core/server-manager.js',
     
@@ -27,9 +28,6 @@ const SCRIPTS = {
     
     // Utility automation
     contractSolver: '/scripts/core/contract-solver.js',
-    
-    // This on in last position as it eat all the remaining RAM
-    orchestrator: '/scripts/core/orchestrator.js',
 };
 
 export async function main(ns) {
@@ -90,20 +88,6 @@ export async function main(ns) {
         } else {
             failed.push('scanner');
             ns.print('✗ Failed to start scanner');
-        }
-    }
-    
-    await ns.sleep(500);
-    
-    // Start orchestrator (essential)
-    if (ns.getScriptRam(SCRIPTS.orchestrator) <= availableRAM - ns.getServerUsedRam('home')) {
-        const pid = ns.run(SCRIPTS.orchestrator);
-        if (pid > 0) {
-            started.push('orchestrator');
-            ns.print('✓ Hacking orchestrator started');
-        } else {
-            failed.push('orchestrator');
-            ns.print('✗ Failed to start orchestrator');
         }
     }
     
@@ -236,6 +220,21 @@ export async function main(ns) {
             failed.push('bladeburnerManager');
         }
     }
+
+    // Start orchestrator (essential)
+    // WARNING - This one at last cause eating all the remaining RAM !! You cannot run any other scripts
+    if (ns.getScriptRam(SCRIPTS.orchestrator) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.orchestrator);
+        if (pid > 0) {
+            started.push('orchestrator');
+            ns.print('✓ Hacking orchestrator started');
+        } else {
+            failed.push('orchestrator');
+            ns.print('✗ Failed to start orchestrator');
+        }
+    }
+    
+    await ns.sleep(500);
     
     ns.print('\n════════════════════════════════════════');
     ns.print(`Started: ${started.length}/${Object.keys(SCRIPTS).length} scripts`);
