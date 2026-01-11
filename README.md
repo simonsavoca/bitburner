@@ -148,12 +148,33 @@ A comprehensive, fully-automated gameplay solution for the Bitburner game. This 
 - Optionally: Manual augmentation installation trigger
 - Optionally: Endgame decisions (destroying w0r1d_d43m0n)
 
-### Level 3: Future Enhancements (Advanced Features)
+### Level 3: Advanced Automation (Requires Specific Source-Files)
+
+**Stock Market Automation** (`scripts/core/stock-manager.js`) - Requires Source-File 8
+- Automatically purchases WSE account ($200m)
+- Purchases TIX API access ($5b) for automated trading
+- Purchases 4S Market Data ($1b) for better forecasting
+- Purchases 4S Market Data TIX API ($25b) for advanced data
+- Automatically buys stocks with positive forecast (>55% chance)
+- Automatically sells stocks with negative forecast (<45% chance)
+- Monitors portfolio and tracks profit/loss
+- Intelligently manages position sizes and risk
+
+**Bladeburner Automation** (`scripts/core/bladeburner-manager.js`) - Requires Source-File 7
+- Automatically joins Bladeburner division when eligible
+- Upgrades skills based on optimal priority order
+- Automatically selects and performs best available actions:
+  - Prioritizes Black Ops when ready (75%+ success chance)
+  - Performs Operations for rank and reputation
+  - Completes Contracts when available
+  - Trains stats and reduces chaos when needed
+- Manages stamina with automatic recovery
+- Tracks available actions and progression
+
+### Level 4: Future Enhancements
 - Corporation automation (if you have access)
 - Gang automation (if you have access)
-- Bladeburner automation (if you have access)
 - Sleeve automation (if you have access)
-- Stock market automation (if you have access)
 
 ## 🚀 Quick Start
 
@@ -499,7 +520,9 @@ scripts/
 │   ├── stat-manager.js             # Stat training automation (SF4)
 │   ├── backdoor-installer.js       # Backdoor automation (SF4)
 │   ├── progression-orchestrator.js # Master controller (SF4)
-│   └── contract-solver.js          # Coding contract solver
+│   ├── contract-solver.js          # Coding contract solver
+│   ├── stock-manager.js            # Stock market automation (SF8)
+│   └── bladeburner-manager.js      # Bladeburner automation (SF7)
 ├── utils/
 │   ├── server-utils.js             # Server helper functions
 │   └── format-utils.js             # Formatting functions
@@ -558,12 +581,22 @@ scripts/
 - Final augmentation installation (auto at 10+ queued, or manual trigger)
 - BitNode completion (automation guides, but you choose when)
 
+### ✅ Advanced Automation (With Specific Source-Files)
+- **Stock market trading** (requires SF8)
+  - WSE account and TIX API purchase
+  - 4S Market Data purchase
+  - Automated buying and selling based on forecasts
+  - Portfolio management and profit tracking
+- **Bladeburner operations** (requires SF7)
+  - Division joining
+  - Skill upgrades
+  - Action selection (Contracts, Operations, Black Ops)
+  - Stamina and chaos management
+
 ### ❌ Not Automated (Yet)
 - Corporation (future enhancement)
 - Gang (future enhancement)
-- Bladeburner (future enhancement)
 - Sleeves (future enhancement)
-- Stock market (future enhancement)
 - Stanek's Gift (future enhancement)
 
 ## Contributing

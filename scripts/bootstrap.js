@@ -11,7 +11,6 @@ import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
 const SCRIPTS = {
     // Core automation (always run)
     scanner: '/scripts/core/scanner.js',
-    orchestrator: '/scripts/core/orchestrator.js',
     hacknetManager: '/scripts/core/hacknet-manager.js',
     serverManager: '/scripts/core/server-manager.js',
     
@@ -22,8 +21,15 @@ const SCRIPTS = {
     backdoorInstaller: '/scripts/core/backdoor-installer.js',
     progressionOrchestrator: '/scripts/core/progression-orchestrator.js',
     
+    // Advanced automation (requires specific Source Files)
+    stockManager: '/scripts/core/stock-manager.js', // Requires SF8
+    bladeburnerManager: '/scripts/core/bladeburner-manager.js', // Requires SF7
+    
     // Utility automation
     contractSolver: '/scripts/core/contract-solver.js',
+    
+    // This on in last position as it eat all the remaining RAM
+    orchestrator: '/scripts/core/orchestrator.js',
 };
 
 export async function main(ns) {
@@ -205,12 +211,40 @@ export async function main(ns) {
         }
     }
     
+    await ns.sleep(500);
+    
+    // Start stock manager (optional, requires SF8)
+    if (ns.getScriptRam(SCRIPTS.stockManager) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.stockManager);
+        if (pid > 0) {
+            started.push('stockManager');
+            ns.print('✓ Stock manager started');
+        } else {
+            failed.push('stockManager');
+        }
+    }
+    
+    await ns.sleep(500);
+    
+    // Start bladeburner manager (optional, requires SF7)
+    if (ns.getScriptRam(SCRIPTS.bladeburnerManager) <= availableRAM - ns.getServerUsedRam('home')) {
+        const pid = ns.run(SCRIPTS.bladeburnerManager);
+        if (pid > 0) {
+            started.push('bladeburnerManager');
+            ns.print('✓ Bladeburner manager started');
+        } else {
+            failed.push('bladeburnerManager');
+        }
+    }
+    
     ns.print('\n════════════════════════════════════════');
     ns.print(`Started: ${started.length}/${Object.keys(SCRIPTS).length} scripts`);
     if (failed.length > 0) {
         ns.print(`Failed: ${failed.length} scripts: ${failed.join(', ')}`);
         ns.print('Consider upgrading home RAM for full automation');
         ns.print('\nNote: Singularity functions require Source-File 4');
+        ns.print('Stock Market requires Source-File 8');
+        ns.print('Bladeburner requires Source-File 7');
     }
     ns.print('════════════════════════════════════════\n');
     
