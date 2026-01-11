@@ -11,7 +11,6 @@ import { formatMoney, formatRAM } from '/scripts/utils/format-utils.js';
 const SCRIPTS = {
     // Core automation (always run)
     scanner: '/scripts/core/scanner.js',
-    orchestrator: '/scripts/core/orchestrator.js',
     hacknetManager: '/scripts/core/hacknet-manager.js',
     serverManager: '/scripts/core/server-manager.js',
     
@@ -28,6 +27,9 @@ const SCRIPTS = {
     
     // Utility automation
     contractSolver: '/scripts/core/contract-solver.js',
+    
+    // This on in last position as it eat all the remaining RAM
+    orchestrator: '/scripts/core/orchestrator.js',
 };
 
 export async function main(ns) {
