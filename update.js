@@ -44,6 +44,10 @@ const FILES = [
     { path: '/scripts/core/progression-orchestrator.js', url: `${REPO_BASE}/scripts/core/progression-orchestrator.js` },
     { path: '/scripts/core/contract-solver.js', url: `${REPO_BASE}/scripts/core/contract-solver.js` },
     
+    // Advanced automation scripts (Special Source Files)
+    { path: '/scripts/core/stock-manager.js', url: `${REPO_BASE}/scripts/core/stock-manager.js` }, // Requires SF8
+    { path: '/scripts/core/bladeburner-manager.js', url: `${REPO_BASE}/scripts/core/bladeburner-manager.js` }, // Requires SF7
+    
     // Utility scripts
     { path: '/scripts/utils/server-utils.js', url: `${REPO_BASE}/scripts/utils/server-utils.js` },
     { path: '/scripts/utils/format-utils.js', url: `${REPO_BASE}/scripts/utils/format-utils.js` },
@@ -91,6 +95,8 @@ export async function main(ns) {
             '/scripts/core/backdoor-installer.js',
             '/scripts/core/progression-orchestrator.js',
             '/scripts/core/contract-solver.js',
+            '/scripts/core/stock-manager.js',
+            '/scripts/core/bladeburner-manager.js',
         ];
         
         for (const script of scriptsToKill) {
