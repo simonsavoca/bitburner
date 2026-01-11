@@ -106,13 +106,13 @@ export async function main(ns) {
 /**
  * Perform automated stock trading based on forecasts
  */
-async function performTrading(ns, currentMoney) {
+async function performTrading(ns, initialMoney) {
     ns.print('--- Trading Operations ---');
     
     const symbols = ns.stock.getSymbols();
     const has4SData = ns.stock.has4SDataTIXAPI();
     
-    let totalValue = currentMoney;
+    let totalValue = initialMoney;
     let totalProfit = 0;
     
     // Calculate total portfolio value
@@ -134,11 +134,12 @@ async function performTrading(ns, currentMoney) {
     ns.print(`Portfolio Value: ${formatMoney(totalValue)}`);
     ns.print(`Total Profit: ${formatMoney(totalProfit)}\n`);
     
-    // Money available for trading (keep 25% in cash)
-    const tradingMoney = currentMoney * MAX_PORTFOLIO_PERCENT;
-    
     // Process each stock
     for (const sym of symbols) {
+        // Get current money from server (updated after each transaction)
+        const currentMoney = ns.getServerMoneyAvailable('home');
+        const tradingMoney = currentMoney * MAX_PORTFOLIO_PERCENT;
+        
         const position = ns.stock.getPosition(sym);
         const [longShares, longAvgPrice] = position;
         const currentPrice = ns.stock.getPrice(sym);
@@ -171,7 +172,6 @@ async function performTrading(ns, currentMoney) {
                 if (cost <= currentMoney && actualShares > 0) {
                     if (ns.stock.buyStock(sym, actualShares)) {
                         ns.print(`📈 BUY ${sym}: ${actualShares} shares for ${formatMoney(cost)} (forecast: ${(forecast * 100).toFixed(1)}%)`);
-                        currentMoney -= cost;
                     }
                 }
             }
