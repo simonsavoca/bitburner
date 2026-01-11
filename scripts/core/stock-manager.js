@@ -22,9 +22,9 @@ const MAX_PORTFOLIO_PERCENT = 0.25; // Use max 25% of money for stocks (was 75% 
 const COMMISSION = 100000; // $100k commission per transaction
 
 // Purchase thresholds - only buy expensive APIs when we have plenty of money
-const TIX_API_PURCHASE_THRESHOLD = 0.1; // Only spend 10% of cash on TIX API (need $50b to buy $5b API)
-const FOUR_SIGMA_PURCHASE_THRESHOLD = 0.05; // Only spend 5% of cash on 4S Data (need $20b to buy $1b)
-const FOUR_SIGMA_API_PURCHASE_THRESHOLD = 0.02; // Only spend 2% of cash on 4S API (need $1.25t to buy $25b)
+const TIX_API_PURCHASE_THRESHOLD = 0.1; // Only spend 10% of cash on TIX API
+const FOUR_SIGMA_PURCHASE_THRESHOLD = 0.05; // Only spend 5% of cash on 4S Data
+const FOUR_SIGMA_API_PURCHASE_THRESHOLD = 0.02; // Only spend 2% of cash on 4S API
 
 export async function main(ns) {
     ns.disableLog('ALL');
