@@ -40,6 +40,20 @@ const CREATABLE_PROGRAMS = [
     'Formulas.exe'
 ];
 
+// Hacking level requirements for creating programs
+const PROGRAM_REQUIREMENTS = {
+    'BruteSSH.exe': 50,
+    'FTPCrack.exe': 100,
+    'relaySMTP.exe': 250,
+    'HTTPWorm.exe': 500,
+    'SQLInject.exe': 750,
+    'DeepscanV1.exe': 75,
+    'DeepscanV2.exe': 400,
+    'AutoLink.exe': 25,
+    'ServerProfiler.exe': 75,
+    'Formulas.exe': 1000
+};
+
 export async function main(ns) {
     ns.disableLog('ALL');
     ns.ui.openTail();
@@ -104,7 +118,7 @@ async function handlePrograms(ns, priorityPrograms, creatablePrograms, currentMo
             if (!currentlyCreating) {
                 // Check if we can create it
                 if (creatablePrograms.includes(program)) {
-                    const hackingReq = ns.singularity.getHackingLevelRequirementOfProgram(program);
+                    const hackingReq = PROGRAM_REQUIREMENTS[program] || 0;
                     
                     if (ns.getHackingLevel() >= hackingReq) {
                         ns.print(`🔨 Starting creation: ${program}`);
